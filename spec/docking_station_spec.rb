@@ -4,8 +4,9 @@ describe DockingStation do
 	it {is_expected.to respond_to :release_bike}
 
 	it "releases a working bike" do 
-		subject.dock Bike.new
-		bike = subject.release_bike
+		bike = Bike.new
+		subject.dock bike
+		subject.release_bike
 		expect(bike).to be_working
 	end	
 
@@ -32,6 +33,13 @@ describe DockingStation do
 	it 'can change capacity' do
 		subject.capacity = 50
 		expect(subject.capacity).to eq 50
-	end 	
+	end 
+
+	it 'does not release broken bikes' do 
+		bike = Bike.new
+		bike.report_broken
+		subject.dock bike
+		expect{subject.release_bike}.to raise_error 'Bike is broken'
+	end  
 end
 
