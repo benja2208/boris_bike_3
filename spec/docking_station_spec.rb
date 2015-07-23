@@ -30,7 +30,8 @@ describe DockingStation do
 	end 	
 
 	it 'can change capacity' do
-		expect(DockingStation.new(50).capacity).to eq 50
+		subject.capacity = 50
+		expect(subject.capacity).to eq 50
 	end 	
 end
 
